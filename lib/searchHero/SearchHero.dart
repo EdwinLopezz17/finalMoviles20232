@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../db/FavoritesHelper.dart';
-import '../favorite/ShowFavorites.dart';
 
 class SearchHero extends StatefulWidget {
   @override
@@ -36,7 +35,9 @@ class _SearchHero extends State<SearchHero> {
   Future<void> _saveResultCount(int count) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('resultCount', count);
+
+      await prefs.setInt('resultCount', (count + resultCount));
+      _loadResultCount();
     } catch (e) {
       print("Error saving result count: $e");
     }
